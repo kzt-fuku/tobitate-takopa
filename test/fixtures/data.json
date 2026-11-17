@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "event": {
+    "title": "テスト用イベント"
+  },
+  "prices": {
+    "stay": {
+      "univ": 5000,
+      "high": 3500
+    },
+    "tako": {
+      "univ": 1000,
+      "high": 500
+    },
+    "takoStay": {
+      "univ": 1000,
+      "high": 500
+    },
+    "sweets": {
+      "univ": 0,
+      "high": 0
+    }
+  },
+  "participants": [
+    {
+      "id": "p001",
+      "name": "主催A",
+      "category": "univ",
+      "status": "confirmed",
+      "stay11": true,
+      "stay12": true,
+      "takoOnly": false,
+      "sweets": false,
+      "organizer": true,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p002",
+      "name": "主催B",
+      "category": "univ",
+      "status": "confirmed",
+      "stay11": true,
+      "stay12": true,
+      "takoOnly": false,
+      "sweets": false,
+      "organizer": true,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p003",
+      "name": "大学C",
+      "category": "univ",
+      "status": "confirmed",
+      "stay11": false,
+      "stay12": true,
+      "takoOnly": false,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p004",
+      "name": "大学D",
+      "category": "univ",
+      "status": "maybe",
+      "stay11": false,
+      "stay12": false,
+      "takoOnly": true,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p005",
+      "name": "高校E",
+      "category": "high",
+      "status": "confirmed",
+      "stay11": true,
+      "stay12": false,
+      "takoOnly": false,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p006",
+      "name": "高校F",
+      "category": "high",
+      "status": "confirmed",
+      "stay11": false,
+      "stay12": false,
+      "takoOnly": true,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p007",
+      "name": "高校G",
+      "category": "high",
+      "status": "maybe",
+      "stay11": true,
+      "stay12": true,
+      "takoOnly": true,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": false,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    },
+    {
+      "id": "p008",
+      "name": "高校H",
+      "category": "high",
+      "status": "cancelled",
+      "stay11": true,
+      "stay12": false,
+      "takoOnly": false,
+      "sweets": false,
+      "organizer": false,
+      "paid": false,
+      "cancelFee": true,
+      "gender": "",
+      "age": "",
+      "term": "",
+      "grade": "",
+      "ig": "",
+      "note": ""
+    }
+  ],
+  "expenses": [
+    {
+      "id": "e001",
+      "name": "会場代",
+      "amount": 20000,
+      "kind": "venue",
+      "note": ""
+    }
+  ],
+  "shopping": [
+    {
+      "id": "b001",
+      "name": "粉",
+      "planned": 1000,
+      "actual": null,
+      "purchased": false,
+      "assignee": "",
+      "note": ""
+    },
+    {
+      "id": "b002",
+      "name": "飲み物",
+      "planned": null,
+      "actual": null,
+      "purchased": false,
+      "assignee": "",
+      "note": ""
+    }
+  ],
+  "roles": [
+    {
+      "id": "r001",
+      "role": "予約",
+      "assignee": "主催A",
+      "done": true,
+      "doneNote": "10/1",
+      "note": ""
+    }
+  ],
+  "sections": [
+    {
+      "id": "s001",
+      "title": "詳細",
+      "body": "テスト用の本文\n2行目"
+    }
+  ]
+}

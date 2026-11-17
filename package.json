@@ -1,0 +1,13 @@
+{
+  "name": "tobitate-takopa",
+  "private": true,
+  "description": "たこパ主催者ページ（GitHub Pages）。データは非公開リポジトリに置く",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "check:ui": "node tools/check-ui.mjs",
+    "check": "npm test && npm run check:ui"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.18.0"
+  }
+}

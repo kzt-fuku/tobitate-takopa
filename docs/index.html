@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1f6f5c">
+  <!-- バージョンを上げたら、下の css/js の ?v= も同じ値にする（npm run check で検証） -->
+  <meta name="app-version" content="1.0.0">
+  <title>主催者ページ</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.0">
+</head>
+<body>
+  <!-- 合言葉の入力（データはこの公開ページには含まれない） -->
+  <section class="lock" id="lock" hidden>
+    <div class="lock-card">
+      <h1>主催者ページ</h1>
+      <p>主催者用のページです。この端末で初めて開くときは、合言葉を入力してください。</p>
+      <form id="lock-form" class="lock-form">
+        <label class="field-label" for="lock-token">合言葉</label>
+        <input id="lock-token" class="text-input" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        <button type="submit" class="button button-primary button-block" id="lock-submit">開く</button>
+      </form>
+      <p class="form-error" id="lock-error" role="alert" hidden></p>
+      <p class="field-hint">合言葉は、この端末のブラウザにだけ保存されます。</p>
+    </div>
+  </section>
+
+  <p class="boot-status" id="boot-status" role="status">読み込み中…</p>
+
+  <div class="app" id="app" hidden>
+    <header class="app-header">
+      <h1 id="event-title">主催者ページ</h1>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="ページ切り替え">
+      <button type="button" class="tab" role="tab" data-tab="participants">参加者</button>
+      <button type="button" class="tab" role="tab" data-tab="accounting">会計</button>
+      <button type="button" class="tab" role="tab" data-tab="shopping">買い物</button>
+      <button type="button" class="tab" role="tab" data-tab="info">情報</button>
+    </nav>
+
+    <main class="tab-panel" id="tab-panel" role="tabpanel"></main>
+
+    <!-- 保存の状態と操作（常に表示） -->
+    <div class="save-bar" id="save-bar">
+      <p class="save-status" id="save-status" role="status">保存済み</p>
+      <div class="save-actions">
+        <button type="button" class="button" id="reload-button">最新を読み込む</button>
+        <button type="button" class="button button-primary" id="save-button">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 編集フォーム（参加者・費用・買い物・役割・詳細で共用） -->
+  <dialog class="sheet" id="form-sheet" aria-label="編集">
+    <div class="sheet-body"></div>
+  </dialog>
+
+  <!-- 保存の競合 -->
+  <dialog class="sheet" id="conflict-sheet" aria-labelledby="conflict-title">
+    <div class="sheet-body">
+      <p class="sheet-title" id="conflict-title">ほかの端末で先に保存されています</p>
+      <p class="sheet-text" id="conflict-text"></p>
+      <div class="stack">
+        <button type="button" class="button button-block" id="conflict-load">ほかの端末の最新を使う（この端末の変更は捨てる）</button>
+        <button type="button" class="button button-primary button-block" id="conflict-overwrite">この端末の変更で上書き保存する</button>
+        <button type="button" class="button button-block button-plain" id="conflict-cancel">あとで決める</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-text"></span>
+    <button type="button" class="toast-undo" id="toast-undo">元に戻す</button>
+  </div>
+
+  <script src="js/config.js?v=1.0.0"></script>
+  <script src="js/calc.js?v=1.0.0"></script>
+  <script src="js/store.js?v=1.0.0"></script>
+  <script src="js/ui.js?v=1.0.0"></script>
+  <script src="js/view-participants.js?v=1.0.0"></script>
+  <script src="js/view-accounting.js?v=1.0.0"></script>
+  <script src="js/view-shopping.js?v=1.0.0"></script>
+  <script src="js/view-info.js?v=1.0.0"></script>
+  <script src="js/app.js?v=1.0.0"></script>
+</body>
+</html>
