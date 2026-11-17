@@ -40,6 +40,7 @@ docs/                 GitHub Pages の公開元（main ブランチの /docs）
   js/app.js           起動・合言葉・タブ・保存バー
 test/calc.test.js     計算のテスト
 tools/check-ui.mjs    画面の動作確認（GitHub API はモック、375px / 390px）
+tools/check-live.mjs  公開ページと本物の GitHub API での確認（一時ブランチを使う）
 ```
 
 ## 開発
@@ -47,6 +48,7 @@ tools/check-ui.mjs    画面の動作確認（GitHub API はモック、375px / 
 ```sh
 npm install
 npm run check        # 計算のテスト + 画面の動作確認
+TAKOPA_TOKEN=... npm run check:live   # 公開ページ × 本物の API（一時ブランチで試し、本番データは変更しない）
 ```
 
 バージョンは `docs/index.html` の `<meta name="app-version">` と、css / js の `?v=` を同じ値にする（更新時に古いファイルがキャッシュから使われないようにするため）。
