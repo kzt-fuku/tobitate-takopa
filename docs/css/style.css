@@ -588,8 +588,10 @@ textarea.text-input {
   font-weight: 800;
 }
 
-.table .amount,
-.table .sub {
+/* セルの中の金額と注記だけを縦に並べる（td 自体を block にすると表の列がずれる） */
+.table td > span.amount,
+.table td > span.sub,
+.table th > span.sub {
   display: block;
 }
 

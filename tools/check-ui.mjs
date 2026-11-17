@@ -136,6 +136,19 @@ async function main() {
         await page.screenshot({ path: path.join(SCREENSHOT_DIR, `w${width}-${tab}.png`), fullPage: true });
       }
       await openTab("accounting");
+      // 表のセルが表として並び、各表の右端の列（金額）の右端が揃っている
+      const tableProblems = await page.evaluate(() => {
+        const issues = [];
+        document.querySelectorAll(".table").forEach((table, index) => {
+          table.querySelectorAll("th, td").forEach((cell) => {
+            if (getComputedStyle(cell).display !== "table-cell") issues.push(`表${index + 1}: セルが table-cell ではない（${cell.className || cell.tagName}）`);
+          });
+          const rights = new Set(Array.from(table.rows, (row) => Math.round(row.cells[row.cells.length - 1].getBoundingClientRect().right)));
+          if (rights.size > 1) issues.push(`表${index + 1}: 右端の列がずれている（${[...rights].join(", ")}）`);
+        });
+        return issues;
+      });
+      tableProblems.forEach((p) => fail(`会計: ${p}`));
       const expectedIncome = calc.computeAccounting(initial, {}).income;
       const incomeText = await page.$eval(".income-table tfoot .amount", (el) => el.textContent);
       if (incomeText !== yen(expectedIncome)) fail(`収入合計 ${incomeText}（期待 ${yen(expectedIncome)}）`);
