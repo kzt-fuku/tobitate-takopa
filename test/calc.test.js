@@ -54,11 +54,11 @@ test("宿泊者のたこパ料金は、たこパのみと別に設定できる",
   assert.equal(calc.fixedFees(person({ category: "high", takoOnly: true }), prices).tako, 500);
 });
 
-test("収入から会場代を引き、食費が上回った分を大学生全員で割る（10円未満切り捨て）", () => {
+test("収入から会場代を引き、食費が上回った分を大学生で割る（10円未満切り捨て、12日のみ宿泊は除く）", () => {
   const people = [
     person({ stay11: true }),                         // 5,000 + 1,000
     person({ takoOnly: true }),                       // 1,000
-    person({ category: "univ", status: "confirmed", stay12: true }), // 5,000
+    person({ category: "univ", status: "confirmed", stay12: true }), // 5,000（12日のみ宿泊なので割り勘の対象外）
     person({ category: "high", stay11: true }),       // 3,500 + 500
   ];
   const result = calc.computeAccounting(data(people, {
@@ -69,10 +69,11 @@ test("収入から会場代を引き、食費が上回った分を大学生全�
   assert.equal(result.afterVenue, 6000);
   assert.equal(result.foodCost, 10001); // 実際の金額があればそれを使う
   assert.equal(result.deficit, 4001);
-  assert.equal(result.univCount, 3);
-  assert.equal(result.sharePerUniv, 1330); // 4001 / 3 = 1333.6 → 1330
-  assert.equal(result.shareShortfall, 11);
-  assert.equal(result.perPerson[people[0].id].due, 6000 + 1330);
+  assert.equal(result.univCount, 2);
+  assert.equal(result.sharePerUniv, 2000); // 4001 / 2 = 2000.5 → 2000
+  assert.equal(result.shareShortfall, 1);
+  assert.equal(result.perPerson[people[0].id].due, 6000 + 2000);
+  assert.equal(result.perPerson[people[2].id].due, 5000);
   assert.equal(result.perPerson[people[3].id].due, 4000); // 高校生は割り勘なし
 });
 
@@ -142,4 +143,21 @@ test("集金済み・未集金は請求額（割り勘・割引込み）で集�
   assert.equal(result.balance, 0);
   assert.equal(result.collected, 500);
   assert.equal(result.uncollected, 4000);
+});
+
+test("2日目（12日）の宿泊のみの大学生は割り勘の対象外", () => {
+  const both = person({ stay11: true, stay12: true });
+  const stay12only = person({ stay12: true });
+  const stay12tako = person({ stay12: true, takoOnly: true });
+  const result = calc.computeAccounting(data([both, stay12only, stay12tako], {
+    expenses: [{ id: "e1", name: "会場", amount: 30000, kind: "venue" }],
+  }), {});
+  // 収入 11,000 + 5,000 + 6,000 = 22,000、不足 8,000 を2人で割る
+  assert.equal(result.deficit, 8000);
+  assert.equal(result.univCount, 2);
+  assert.equal(result.perPerson[stay12only.id].share, 0);
+  assert.equal(result.perPerson[both.id].share, 4000);
+  assert.equal(result.perPerson[stay12tako.id].share, 4000);
+  assert.equal(calc.stay12Only(stay12only), true);
+  assert.equal(calc.stay12Only(stay12tako), false);
 });

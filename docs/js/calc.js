@@ -45,6 +45,11 @@
     return { stay, tako, sweets, total: stay + tako + sweets };
   }
 
+  // 2日目（12日）の宿泊だけに参加する人。食費の割り勘の対象外
+  function stay12Only(person) {
+    return Boolean(person.stay12 && !person.stay11 && !person.takoOnly && !person.sweets);
+  }
+
   function participates(person) {
     return Boolean(person.stay11 || person.stay12 || person.takoOnly || person.sweets);
   }
@@ -123,8 +128,10 @@
     const afterVenue = income - venueCost;
     const balance = afterVenue - foodCost - otherCost;
 
-    // 不足: 確定した大学生全員で均等に割る（10円未満切り捨て。切り捨てで残る不足は主催者負担）
-    const univIds = people.filter((p) => perPerson[p.id].active && p.category === "univ").map((p) => p.id);
+    // 不足: 大学生以上で均等に割る（2日目の宿泊のみの人は除く。10円未満切り捨て。切り捨てで残る不足は主催者負担）
+    const univIds = people
+      .filter((p) => perPerson[p.id].active && p.category === "univ" && !stay12Only(p))
+      .map((p) => p.id);
     let deficit = 0;
     let sharePerUniv = 0;
     let shareShortfall = 0;
@@ -225,6 +232,7 @@
     joinsTako,
     nights,
     fixedFees,
+    stay12Only,
     participates,
     isActive,
     shoppingAmount,

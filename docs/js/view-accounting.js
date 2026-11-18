@@ -107,7 +107,7 @@
       outcome = el("div", { class: "outcome outcome-deficit" }, [
         el("p", { class: "outcome-title", text: `${yen(result.deficit)} 足りません` }),
         result.univCount
-          ? el("p", { text: `大学生以上 ${result.univCount}人で割って、1人 ${yen(result.sharePerUniv)} を追加で集めます（10円未満切り捨て）。` })
+          ? el("p", { text: `大学生以上 ${result.univCount}人で割って、1人 ${yen(result.sharePerUniv)} を追加で集めます（10円未満切り捨て。2日目の宿泊のみの人は除く）。` })
           : el("p", { text: "割り勘する大学生がいません。" }),
         result.shareShortfall > 0 ? el("p", { class: "sub", text: `切り捨てで残る ${yen(result.shareShortfall)} は主催者の負担です。` }) : null,
       ]);
